@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
  export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-
-  const handleSubmit = async (req, res) => {
+  const handleSubmit = async () => {
     console.log(`Usuario: ${username} Contraseña: ${password}`)
   
     try {
@@ -26,10 +28,19 @@ import { useState } from "react";
       }
       
       localStorage.setItem('token', data.token);
-      alert("Inicio de sesión exitoso")
+
+      Swal.fire({
+        title: '¡Inicio de sesión exitoso!',
+        text: 'Redirigiendo...',
+        timer: 2000
+      })
+
+      navigate("/Home")
+
     } catch (error) {
       return console.error("Error al loguearse")
     }
+    
   }
   return (
     <>
