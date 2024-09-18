@@ -1,0 +1,24 @@
+.buttonProduct {
+    display: flex;
+    gap: 5px;
+    flex-direction: row-reverse;
+    justify-content: center
+}
+
+.cardContainer {
+    display: flex;
+    width: 18rem;
+    background-color: #333;
+    color: #fff;
+    flex-direction: column
+}
+
+.cardBody {
+    flex: 1;
+}
+
+.cardText {
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap
+}

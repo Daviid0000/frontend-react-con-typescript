@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import "../components/styles.public.product.css"
 
 export const FormModal = ({ show, handleClose }) => {
   const [product, setProduct] = useState({
@@ -38,15 +39,15 @@ export const FormModal = ({ show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleClose} >
-      <Modal.Header closeButton style={{ backgroundColor: "#333", color:"#fff"}}>
+      <Modal.Header closeButton className='containerPublicProduct'>
         <Modal.Title>Producto</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ backgroundColor: "#333", color:"#fff"}}>
+      <Modal.Body className='containerPublicProduct'>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formProductCompany" >
             <Form.Label>Company</Form.Label>
             <Form.Control
-              
+              className='inputPublicProduct'
               type="text"
               placeholder="Empresa"
               name="company"
@@ -55,9 +56,10 @@ export const FormModal = ({ show, handleClose }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formProductName" style={{ backgroundColor: "#333"}}>
+          <Form.Group controlId="formProductName" className='formPublicProduct'>
             <Form.Label>Product Name</Form.Label>
             <Form.Control
+              className='inputPublicProduct'
               type="text"
               placeholder="Nombre de producto"
               name="name"
@@ -69,6 +71,7 @@ export const FormModal = ({ show, handleClose }) => {
           <Form.Group controlId="formProductDescription">
             <Form.Label>Description</Form.Label>
             <Form.Control
+              className='inputPublicProduct'
               as="textarea"
               rows={3}
               placeholder="Descripcion de producto"
@@ -81,6 +84,7 @@ export const FormModal = ({ show, handleClose }) => {
           <Form.Group controlId="formProductUbication">
             <Form.Label>Ubication</Form.Label>
             <Form.Control
+              className='inputPublicProduct'
               type="text"
               placeholder="Dónde se ubica el producto"
               name="ubication"
@@ -92,6 +96,7 @@ export const FormModal = ({ show, handleClose }) => {
           <Form.Group controlId="formProductStock">
             <Form.Label>Stock</Form.Label>
             <Form.Control
+              className='inputPublicProduct'
               type="number"
               placeholder="Stock de producto"
               name="stock"

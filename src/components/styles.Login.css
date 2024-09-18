@@ -1,0 +1,29 @@
+.containerLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.subContainerLogin {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 15px;
+    position: relative;
+    top: 100px;
+}
+
+.inputLogin {
+    display: block;
+    background-color: #111;
+    border: none;
+    border-radius: 5px;
+    margin: 15px;
+    padding: 10px;
+    color: #ddd;
+}
+
+.buttonLogin {
+    width: 100%;
+}

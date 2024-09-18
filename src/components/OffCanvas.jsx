@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -12,7 +13,12 @@ export const OffCanvas = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
+  const sesionClose = () => {
+    localStorage.removeItem('token');
+    navigate("/login");
+  }
   return (
     <>
         <Button variant="dark" onClick={handleShow} >
@@ -24,7 +30,8 @@ export const OffCanvas = () => {
             <Offcanvas.Title>Perfil</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            <a style={{color: '#000', fontSize: 15}} href="#">Mi Cuenta</a>
+            <a style={{color: '#000', fontSize: 15}} href="#">Mi Cuenta</a><br />
+            <button className='btn btn-danger' onClick={sesionClose}>Cerrar sesión</button>
         </Offcanvas.Body>
         </Offcanvas>
 

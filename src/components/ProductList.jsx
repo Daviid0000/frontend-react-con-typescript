@@ -12,7 +12,7 @@ export const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/product'); // Cambia esta URL a la de tu API
+        const response = await fetch('http://localhost:3000/api/product');
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -29,7 +29,7 @@ export const ProductList = () => {
   return (
     <Container>
 
-<Button variant="success" onClick={handleShowModal} className="mb-4">
+      <Button variant="success" onClick={handleShowModal} className="mb-4">
         Publicar Producto
       </Button> 
 
@@ -37,7 +37,7 @@ export const ProductList = () => {
       <Row>
         {products.map((product) => (
           <Col key={product.id} md={3} className="mb-4">
-            <Product product={product} />
+            <Product product={product}/>
           </Col>
         ))}
       </Row>

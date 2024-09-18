@@ -1,12 +1,13 @@
 import { jwtDecode } from "jwt-decode";
 
-export const getRolToken = () => {
+export const getCompanyToken = () => {
     const token = localStorage.getItem("token");
     if(token){
       const tokenDecodificado = jwtDecode(token);
-      const rolCompany = tokenDecodificado.CompanyRol
+      const Company = tokenDecodificado.company
+      console.log("Empresa en el frontend:", Company)
       
-      return rolCompany
+      return Company
     }
     return null;
   }

@@ -1,8 +1,10 @@
+import { OffCanvas } from "../components/OffCanvas"
+
 export const HomeRecep = () => {
 
     return(
         <>
-            HOME RECEPOR
+            <OffCanvas />            
         </>
     )
 }
