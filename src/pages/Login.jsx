@@ -40,6 +40,7 @@ import "../components/styles.Login.css"
       
       setTimeout(() => {
         const ROL = getRolToken();
+        console.log(`EMPRESA: ${ROL}`)
 
         if(ROL === "ADMIN"){
           navigate("/Home");
