@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { getRolToken } from "../utils/getRolToken.js";
 
  export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [company, setCompany] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    console.log(`Usuario: ${username} Contraseña: ${password}`)
+    console.log(`Usuario: ${company} Contraseña: ${password}`)
   
     try {
       const response = await fetch("http://localhost:3000/auth/login", {
@@ -16,9 +17,8 @@ import Swal from "sweetalert2";
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({username, password})
+        body: JSON.stringify({company, password})
       });
-
       const data = await response.json();
 
       console.log(`Datos enviados al backend: ${data.token}`)
@@ -35,7 +35,19 @@ import Swal from "sweetalert2";
         timer: 2000
       })
 
-      navigate("/Home")
+      
+      setTimeout(() => {
+        const ROL = getRolToken();
+
+        if(ROL === "ADMIN"){
+          navigate("/Home");
+        }else if(ROL === "COMPANY_EMISOR"){
+          navigate("/Home")
+        }else if(ROL === "ORGANIZATION_RECEPTOR"){
+          navigate("/Homerecep")
+        }
+
+      },2000)
 
     } catch (error) {
       return console.error("Error al loguearse")
@@ -45,7 +57,7 @@ import Swal from "sweetalert2";
   return (
     <>
       <form>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} />
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </form>
       <button onClick={handleSubmit}>Send</button>

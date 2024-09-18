@@ -1,12 +1,12 @@
-import { Routers } from "./routes/PrivateRoutes"
 import { AuthenticateUser } from "./context/contextAuthRoutes"
+import AllRoutes from "./routes/AllRoutes"
 
 function App() {
 
   return (
     <>
       <AuthenticateUser>
-        <Routers />
+        <AllRoutes />
       </AuthenticateUser>
     </>
   )
