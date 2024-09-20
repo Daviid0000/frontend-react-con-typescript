@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 export const DistributeProduct = ({ productId }) => {
   const [showModal, setShowModal] = useState(false);
   const [company, setCompany] = useState('');
-  const [email, setEmail] = useState('');
+  const [organizationReceptor, setOrganizationReceptor] = useState('');
   const [distributed, setDistributed] = useState(0);
 
   const handleDistribute = async () => {
@@ -17,7 +17,7 @@ export const DistributeProduct = ({ productId }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ distributed, company, email }),
+        body: JSON.stringify({ distributed, company, organizationReceptor }),
       });
 
       const data = await response.json();
@@ -62,20 +62,20 @@ export const DistributeProduct = ({ productId }) => {
               <Form.Control
                 className='inputPublicProduct'
                 type="text"
-                placeholder="Nombre de la empresa"
+                placeholder="Empresa distribuidora"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
               />
             </Form.Group>
 
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email de la Organización Receptora</Form.Label>
+            <Form.Group controlId="formOrganization">
+              <Form.Label>Organización Receptora</Form.Label>
               <Form.Control
                 className='inputPublicProduct'
-                type="email"
-                placeholder="Email de la organización"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="Organización que recibe el producto"
+                value={organizationReceptor}
+                onChange={(e) => setOrganizationReceptor(e.target.value)}
               />
             </Form.Group>
 

@@ -10,6 +10,7 @@ const AllRoutes = () => {
     return(
         <BrowserRouter>
             <Routes>
+                <Route index element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
 
