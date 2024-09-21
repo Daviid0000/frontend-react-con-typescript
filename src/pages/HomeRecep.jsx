@@ -3,6 +3,7 @@ import { OffCanvas } from '../components/OffCanvas';
 import Swal from 'sweetalert2';
 import { getCompanyToken } from '../utils/getCompanyToken';
 import { Table, Button, Container, Row, Col } from 'react-bootstrap';
+import "../components/styles.homeRecep.css"
 
 export const HomeRecep = () => {
     const [shipments, setShipments] = useState([]);
@@ -74,55 +75,50 @@ export const HomeRecep = () => {
     return (
         <>
             <OffCanvas />
-            <Container className="mt-4">
-                <Row>
-                    <Col>
-                        <h2 className="mb-4">Productos enviados a tu organización</h2>
-                        {shipments.length > 0 ? (
-                            <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Enviado por</th>
-                                        <th>Fecha de envío</th>
-                                        <th>Estado</th>
-                                        <th>Marcar como recibido</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {shipments.map((shipment) => (
-                                        console.log("Shipment ID: ", shipment.id),
-                                        <tr key={shipment.id}>
-                                            <td>{shipment.product}</td>
-                                            <td>{shipment.quantity}</td>
-                                            <td>{shipment.companyDist}</td>
-                                            <td>{new Date(shipment.dateSend).toLocaleDateString()}</td>
-                                            <td>{shipment.statusProduct}</td>
-                                            <td>
-                                                <Button
-                                                    variant="success"
-                                                    onClick={() => handleReceived(shipment.id)}
-                                                    disabled={shipment.statusProduct === 'RECIBIDO'}
-                                                >
-                                                    {shipment.statusProduct === 'RECIBIDO' ? 'Recibido' : 'Marcar como recibido'}
-                                                    {shipment.statusProduct === 'RECIBIDO' && (
-                                                        <span className='text-success'>
-                                                            Reibido el {new Date(shipment.dateReceived).toLocaleDateString()}
-                                                        </span>
-                                                    )}
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        ) : (
-                            <p>No se encontraron productos enviados a tu organización</p>
-                        )}
-                    </Col>
-                </Row>
-            </Container>
+            <Container className="mt-4 custom-container">
+    <Row>
+        <Col>
+            <h2 className="mb-4 custom-heading">Productos enviados a tu organización</h2>
+            {shipments.length > 0 ? (
+                <Table striped bordered hover className="custom-table">
+                    <thead className="custom-thead">
+                        <tr className="custom-row">
+                            <th className="custom-header titles">Producto</th>
+                            <th className="custom-header titles">Cantidad</th>
+                            <th className="custom-header titles">Enviado por</th>
+                            <th className="custom-header titles">Fecha de envío</th>
+                            <th className="custom-header titles">Estado</th>
+                            <th className="custom-header titles">Marcar como recibido</th>
+                        </tr>
+                    </thead>
+                    <tbody className="custom-tbody">
+                        {shipments.map((shipment) => (
+                            <tr key={shipment.id} className="custom-row">
+                                <td className="custom-cell" style={{backgroundColor: '#333', color: '#ddd'}}>{shipment.product}</td>
+                                <td className="custom-cell" style={{backgroundColor: '#333', color: '#ddd'}}>{shipment.quantity}</td>
+                                <td className="custom-cell" style={{backgroundColor: '#333', color: '#ddd'}}>{shipment.companyDist}</td>
+                                <td className="custom-cell" style={{backgroundColor: '#333', color: '#ddd'}}>{new Date(shipment.dateSend).toLocaleDateString()}</td>
+                                <td className="custom-cell" style={{backgroundColor: '#333', color: '#ddd'}}>{shipment.statusProduct}</td>
+                                <td className="custom-cell" style={{backgroundColor: '#333', color: '#ddd'}}>
+                                    <Button
+                                        variant="success"
+                                        onClick={() => handleReceived(shipment.id)}
+                                        disabled={shipment.statusProduct === 'RECIBIDO'}
+                                        className="custom-button"
+                                    >
+                                        Recibido
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            ) : (
+                <p className="custom-no-products">No se encontraron productos enviados a tu organización</p>
+            )}
+        </Col>
+    </Row>
+</Container>
         </>
     );
 };
