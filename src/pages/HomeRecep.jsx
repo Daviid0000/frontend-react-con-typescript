@@ -1,64 +1,3 @@
-// import React, { useEffect, useState, useContext } from 'react';
-// import { OffCanvas } from '../components/OffCanvas';
-// import Swal from 'sweetalert2';
-// import { getEmailToken } from '../utils/getEmailToken';
-
-// export const HomeRecep = () => {
-//     const [shipments, setShipments] = useState([]);
-//     const emailCompany = getEmailToken();
-    
-//     useEffect(() => {
-//         const fetchShipments = async () => {
-//             try {
-//                 const response = await fetch(`http://localhost:3000/api/product/?=email${emailCompany}`);
-//                 const data = await response.json();
-
-//                 if (!response.ok) {
-//                     throw new Error(data.message || 'Error al obtener los productos enviados');
-//                 }
-
-//                 if (Array.isArray(data.shipments)) {
-//                     setShipments(data.shipments); 
-//                 } else {
-//                     setShipments([]); 
-//                 }
-//             } catch (error) {
-//                 Swal.fire({
-//                     icon: 'error',
-//                     title: 'Error',
-//                     text: error.message,
-//                 });
-//             }
-//         };
-
-//         fetchShipments();
-//     }, [emailCompany]);
-
-//     return (
-//         <>
-//             <OffCanvas />
-//             <div>
-//                 <h2>Productos enviados a tu organización</h2>
-//                 {shipments.length > 0 ? (
-//                     <ul>
-//                         {shipments.map((shipment) => (
-//                             <li key={shipment.id}>
-//                                 <p><strong>Producto:</strong> {shipment.product}</p>
-//                                 <p><strong>Cantidad:</strong> {shipment.quantity}</p>
-//                                 <p><strong>Enviado por:</strong> {shipment.companyDist}</p>
-//                                 <p><strong>Fecha de envío:</strong> {new Date(shipment.dateSend).toLocaleDateString()}</p>
-//                                 <hr />
-//                             </li>
-//                         ))}
-//                     </ul>
-//                 ) : (
-//                     <p>No se encontraron productos enviados a tu organización</p>
-//                 )}
-//             </div>
-//         </>
-//     );
-// };
-
 import React, { useEffect, useState } from 'react';
 import { OffCanvas } from '../components/OffCanvas';
 import Swal from 'sweetalert2';
@@ -78,12 +17,7 @@ export const HomeRecep = () => {
                 if (!response.ok) {
                     throw new Error(data.message || 'Error al obtener los productos enviados');
                 }
- 
-                // if (data.shipments && typeof data.shipments === 'object') {
-                //     setShipments([data.shipments]);
-                // } else {
-                //     setShipments([]); 
-                // }
+
                 if (Array.isArray(data.shipments)) {
                     setShipments(data.shipments);
                 } else {
@@ -101,7 +35,6 @@ export const HomeRecep = () => {
         fetchShipments();
     }, [company]);
 
-    // Función para confirmar recepción del producto
     const handleReceived = async (shipmentId) => {
         try {
             const response = await fetch(`http://localhost:3000/api/productReceived/${shipmentId}`, {
@@ -116,7 +49,6 @@ export const HomeRecep = () => {
                 throw new Error(data.message || 'Error al confirmar recepción');
             }
 
-            // Actualizar el estado local de los envíos
             setShipments((prevShipments) =>
                 prevShipments.map((shipment) =>
                     shipment.id === shipmentId
@@ -160,6 +92,7 @@ export const HomeRecep = () => {
                                 </thead>
                                 <tbody>
                                     {shipments.map((shipment) => (
+                                        console.log("Shipment ID: ", shipment.id),
                                         <tr key={shipment.id}>
                                             <td>{shipment.product}</td>
                                             <td>{shipment.quantity}</td>
@@ -167,18 +100,6 @@ export const HomeRecep = () => {
                                             <td>{new Date(shipment.dateSend).toLocaleDateString()}</td>
                                             <td>{shipment.statusProduct}</td>
                                             <td>
-                                                {/* {shipment.statusProduct !== 'RECIBIDO' ? (
-                                                    <Button
-                                                        variant="success"
-                                                        onClick={() => handleReceived(shipment.id)}
-                                                    >
-                                                        Recibido
-                                                    </Button>
-                                                ) : (
-                                                    <span className="text-success">
-                                                        Recibido el {new Date(shipment.dateReceived).toLocaleDateString()}
-                                                    </span>
-                                                )} */}
                                                 <Button
                                                     variant="success"
                                                     onClick={() => handleReceived(shipment.id)}
