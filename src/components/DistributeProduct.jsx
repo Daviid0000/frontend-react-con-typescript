@@ -88,7 +88,7 @@ export const DistributeProduct = ({ productId }) => {
                 type="number"
                 placeholder="Cantidad"
                 value={distributed}
-                onChange={(e) => setDistributed(e.target.value)}
+                onChange={(e) => setDistributed(Number(e.target.value))}
               />
             </Form.Group>
           </Form>

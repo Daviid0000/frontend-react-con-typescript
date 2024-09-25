@@ -8,15 +8,31 @@
 }
 
 .inputPublicProduct {
-    background-color: #222;
+    background-color: #222 !important;
+    color: #ddd;
+}
+
+.inputPublicProduct:valid {
+    background-color: #222 !important;
+    color: #ddd;
+}
+
+.inputPublicProduct::selection {
+    background-color: #222 !important;
+    color: #ddd;
+}
+
+.inputPublicProduct:invalid {
+    background-color: #222 !important;
     color: #ddd;
 }
 
 .inputPublicProduct:focus {
-    background-color: #222;
+    background-color: #222 !important;
     color: #ddd;
 }
 
 .inputPublicProduct::placeholder {
+    background-color: #222 !important;
     color: #ddd;
 }

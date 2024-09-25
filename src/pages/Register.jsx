@@ -1,59 +1,48 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { getRolToken } from "../utils/getRolToken.js";
 import "../components/styles.Login.css"
-import { rols } from "../types/types.js";
 
- export const Login = () => {
+ export const Register = () => {
   const [company, setCompany] = useState("");
+  const [email, setEmail] = useState("");
+  const [rol, setRol] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Usuario: ${company} Contraseña: ${password}`)
   
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
+      const response = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({company, password})
+        body: JSON.stringify({company, email, password, rol})
       });
       const data = await response.json();
-
-      console.log(`Datos enviados al backend: ${data.token}`)
+      console.log("registro: ", data)
 
       if(!response.ok) {
-        return console.error("No se pudo loguear")
+        return console.error("No se pudo registrar")
       }
       
-      localStorage.setItem('token', data.token);
-
       Swal.fire({
-        title: '¡Inicio de sesión exitoso!',
+        title: 'Registro de sesión exitoso!',
         text: 'Redirigiendo...',
         timer: 2000
       })
+
       
       setTimeout(() => {
-        const ROL = getRolToken();
-        console.log(`EMPRESA: ${ROL}`)
 
-        if(ROL === rols.ADMIN){
-          navigate("/Home");
-        }else if(ROL === rols.COMPANY_EMISOR){
-          navigate("/Home")
-        }else if(ROL === rols.ORGANIZATION_RECEPTOR){
-          navigate("/Homerecep")
-        }
+          navigate("/login");
 
-      },2000)
+      }, 2000)
 
     } catch (error) {
-      return console.error("Error al loguearse")
+      return console.error("Error al registrarse")
     }
     
   }
@@ -62,9 +51,11 @@ import { rols } from "../types/types.js";
       <form className="containerLogin">
         <div className="subContainerLogin">
           <input className="inputLogin" type="text" value={company} placeholder="Empresa" onChange={(e) => setCompany(e.target.value)} />
+          <input className="inputLogin" type="text" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
           <input className="inputLogin" type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-
-          <span>¿Todavía no tenes cuenta? <a href="/register">Registrate</a></span><br />
+          <input className="inputLogin" type="text" value={rol} placeholder="Rol" onChange={(e) => setRol(e.target.value)} />
+          <i style={{color: '#bbb'}}>Rol: DISTRIBUIDORA o RECEPTOR</i><br />
+          <span>¿Ya tenes cuenta? <a href="/login">Inicia sesiónn</a></span><br /> 
           <button className="btn btn-success buttonLogin" onClick={handleSubmit}>Send</button>
         </div>
       </form>
