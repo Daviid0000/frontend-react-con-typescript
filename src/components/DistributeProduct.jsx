@@ -10,6 +10,8 @@ export const DistributeProduct = ({ productId }) => {
   const [organizationReceptor, setOrganizationReceptor] = useState('');
   const [distributed, setDistributed] = useState(0);
 
+  console.log("canntttt:", distributed)
+
   const handleDistribute = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/product/${productId}`, {
