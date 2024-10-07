@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 import "../components/styles.public.product.css"
 
 export const FormModal = ({ show, handleClose }) => {
@@ -19,7 +20,7 @@ export const FormModal = ({ show, handleClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/product', { 
+      const response = await fetch('http://localhost:3000/api/producto', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,6 +30,11 @@ export const FormModal = ({ show, handleClose }) => {
       if (response.ok) {
         setProduct({ company: '', name: '', description: '', ubication: '', stock: 0 });
         handleClose();
+        Swal.fire({
+          title: '¡Producto publicado!',
+          icon: 'success',
+          timer: 2000
+        })
       } else {
         console.error('Error creating product');
       }

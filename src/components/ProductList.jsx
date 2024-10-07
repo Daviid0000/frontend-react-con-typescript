@@ -4,6 +4,7 @@ import { Product } from './Product';
 import { FormModal } from './FormModal';
 import {  Button } from 'react-bootstrap';
 import { getCompanyToken } from '../utils/getCompanyToken';
+import Swal from 'sweetalert2';
 
 
 export const ProductList = () => {
@@ -12,19 +13,25 @@ export const ProductList = () => {
   
   useEffect(() => {
     const company = getCompanyToken();
-    console.log(company)
+    console.log("empresa del token: ", company)
+
     if (!company) {
-      console.error('El valor de company es inválido');
+      Swal.fire({
+        title: '¡Error!',
+        icon: 'error',
+        text: 'Empresa no encontrada',
+        timer: 2000
+      })
       return;
     }
+
     const fetchProducts = async () => {
       try {
         const response = await fetch(`http://localhost:3000/api/product/${company}`);
         const data = await response.json();
-        console.log("data:",data)
-        // setProducts(data);
-        setProducts(Array.isArray(data) ? data : []);
 
+        console.log("data:",data)
+        setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error al obtener los productos:', error);
       }
@@ -44,24 +51,17 @@ export const ProductList = () => {
       </Button> 
 
       <FormModal show={showModal} handleClose={handleCloseModal} />
-      {/* <Row>
-        {products.map((product) => (
-          <Col key={product.id} md={3} className="mb-4">
-            <Product product={product}/>
-          </Col>
-        ))}
-      </Row> */}
       <Row>
-  {products && products.length > 0 ? (
-    products.map((product) => (
-      <Col key={product.id} md={3} className="mb-4">
-        <Product product={product} />
-      </Col>
-    ))
-  ) : (
-    <p>No hay productos disponibles.</p>
-  )}
-</Row>
+        {products && products.length > 0 ? (
+          products.map((product) => (
+            <Col key={product.id} md={3} className="mb-4">
+              <Product product={product} />
+            </Col>
+          ))
+        ) : (
+          <p>No hay productos disponibles.</p>
+        )}
+      </Row>
     </Container>
   );
 };

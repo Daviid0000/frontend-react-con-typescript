@@ -18,8 +18,7 @@ const AllRoutes = () => {
                 <Route path="/unauthorized" element={<Unauthorized />} />
 
                 <Route path="/Home" element={
-                    <RoutesProtected allowedRoles={[rols
-                    .ADMIN, rols.COMPANY_EMISOR]}>
+                    <RoutesProtected allowedRoles={[rols.ADMIN, rols.COMPANY_EMISOR]}>
                         <Home />
                     </RoutesProtected>
                 }/>
