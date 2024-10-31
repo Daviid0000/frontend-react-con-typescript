@@ -25,11 +25,7 @@ export const HomeRecep = () => {
                     setShipments([]); 
                 }
             } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: error.message,
-                });
+                console.error(error.message)
             }
         };
 
@@ -62,12 +58,19 @@ export const HomeRecep = () => {
                 icon: 'success',
                 title: 'Recibido',
                 text: 'El producto ha sido marcado como recibido',
+                timer: 2000,
+                backdrop: '#22222280',
+                background: '#222',
+                color: '#ddd',
             });
         } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: error.message,
+                backdrop: '#22222280',
+                background: '#222',
+                color: '#ddd',
             });
         }
     };
@@ -78,7 +81,7 @@ export const HomeRecep = () => {
             <Container className="mt-4 custom-container">
     <Row>
         <Col>
-            <h2 className="mb-4 custom-heading">Productos enviados a tu organización</h2>
+            <h2 className="mb-4 custom-heading" style={{textAlign: 'center'}}>Productos enviados a tu organización</h2>
             {shipments.length > 0 ? (
                 <Table striped bordered hover className="custom-table">
                     <thead className="custom-thead">
@@ -114,7 +117,9 @@ export const HomeRecep = () => {
                     </tbody>
                 </Table>
             ) : (
-                <p className="custom-no-products">No se encontraron productos enviados a tu organización</p>
+                <p className="custom-no-products" style={{textAlign: 'center', position: 'relative', top: 250}}>
+                    No se encontraron productos enviados a tu organización
+                </p>
             )}
         </Col>
     </Row>

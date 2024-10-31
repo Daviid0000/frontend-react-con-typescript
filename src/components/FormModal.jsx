@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import "../components/styles.public.product.css"
+import { getCompanyToken } from '../utils/getCompanyToken';
 
 export const FormModal = ({ show, handleClose }) => {
   const [product, setProduct] = useState({
@@ -12,6 +13,16 @@ export const FormModal = ({ show, handleClose }) => {
     stock: 0
   });
 
+  useEffect(() => {
+    const companyName = getCompanyToken();
+    if (companyName) {
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        company: companyName
+      }));
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -19,25 +30,33 @@ export const FormModal = ({ show, handleClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch('http://localhost:3000/api/producto', { 
+      const response = await fetch('http://localhost:3000/api/product', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(product),
       });
+
       if (response.ok) {
-        setProduct({ company: '', name: '', description: '', ubication: '', stock: 0 });
+        setProduct({ company: product.company, name: '', description: '', ubication: '', stock: 0 });
         handleClose();
         Swal.fire({
           title: '¡Producto publicado!',
           icon: 'success',
-          timer: 2000
+          timer: 2000,
+          background: '#222',
+          backdrop: '#22222280',
+          color: '#ddd',
+          imageHeight: 100
         })
+
       } else {
         console.error('Error creating product');
       }
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -59,6 +78,7 @@ export const FormModal = ({ show, handleClose }) => {
               name="company"
               value={product.company}
               onChange={handleChange}
+              disabled
             />
           </Form.Group>
 
@@ -111,9 +131,11 @@ export const FormModal = ({ show, handleClose }) => {
             />
           </Form.Group>
 
-          <Button variant="success" type="submit">
-            Publicar
-          </Button>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <Button variant="success" type="submit" style={{width: '100%', marginTop: 15}}>
+              Publicar
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

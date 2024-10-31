@@ -5,7 +5,6 @@ export const getEmailToken = () => {
     if(token){
       const tokenDecodificado = jwtDecode(token);
       const emailCompany = tokenDecodificado.CompanyEmail
-      console.log("Email company frontend:", emailCompany)
       
       return emailCompany
     }

@@ -1,9 +1,9 @@
-export const Unauthorized = () => {
+export const NotFound = () => {
 
     return(
         <>
             <div>
-                Unauthorized
+                Page Not Found
             </div>
         </>
     )

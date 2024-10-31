@@ -34,16 +34,4 @@ const RoutesProtected = ({children, allowedRoles}) => {
     return children 
 }
 
-// export const Routers = () => {
-//     const { state } = useContext(ContextAuthRoutes);
-    
-//     return(
-//         <BrowserRouter>
-//             { // Si el usuario está logueado tendrá acceso a las rutas privadas, sino, a las rutas públicas.
-//                 state.isLogged ? ( <RoutesProtected /> ) : ( <PublicRoutes /> )
-//             }
-//         </BrowserRouter>
-//     )
-// }
-
 export default RoutesProtected

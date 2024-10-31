@@ -5,7 +5,6 @@ export const getCompanyToken = () => {
     if(token){
       const tokenDecodificado = jwtDecode(token);
       const Company = tokenDecodificado.company
-      console.log("Empresa en el frontend:", Company)
       
       return Company
     }

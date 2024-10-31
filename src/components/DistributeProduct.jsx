@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import "../components/styles.public.product.css"
-
 import Swal from 'sweetalert2';
+import { getCompanyToken } from '../utils/getCompanyToken';
 
 export const DistributeProduct = ({ productId }) => {
   const [showModal, setShowModal] = useState(false);
@@ -10,7 +10,12 @@ export const DistributeProduct = ({ productId }) => {
   const [organizationReceptor, setOrganizationReceptor] = useState('');
   const [distributed, setDistributed] = useState(0);
 
-  console.log("canntttt:", distributed)
+  useEffect(() => {
+    const companyName = getCompanyToken();
+    if (companyName) {
+      setCompany(companyName);
+    }
+  }, []);
 
   const handleDistribute = async () => {
     try {
@@ -33,7 +38,9 @@ export const DistributeProduct = ({ productId }) => {
         title: 'Producto distribuido',
         text: data.message,
         timer: 2000,
-        
+        backdrop: '#22222280',
+        background: '#222',
+        color: '#ddd',
       });
 
       setShowModal(false);
@@ -42,6 +49,9 @@ export const DistributeProduct = ({ productId }) => {
         icon: 'error',
         title: 'Error',
         text: error.message,
+        backdrop: '#22222280',
+        background: '#222',
+        color: '#ddd',
       });
     }
   };
@@ -67,6 +77,7 @@ export const DistributeProduct = ({ productId }) => {
                 placeholder="Empresa distribuidora"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
+                disabled
               />
             </Form.Group>
 
@@ -93,11 +104,11 @@ export const DistributeProduct = ({ productId }) => {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer className='containerPublicProduct'>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+        <Modal.Footer className='containerPublicProduct' style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
+          <Button variant="secondary" onClick={() => setShowModal(false)} style={{width: '48%'}}>
             Cancelar
           </Button>
-          <Button variant="success" onClick={handleDistribute}>
+          <Button variant="success" onClick={handleDistribute} style={{width: '48%'}}>
             Confirmar
           </Button>
         </Modal.Footer>

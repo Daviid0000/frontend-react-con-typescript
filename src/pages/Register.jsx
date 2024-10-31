@@ -6,7 +6,7 @@ import "../components/styles.Login.css"
  export const Register = () => {
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
-  const [rol, setRol] = useState("");
+  const [rol, setRol] = useState("DISTRIBUIDORA");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -31,14 +31,15 @@ import "../components/styles.Login.css"
       Swal.fire({
         title: 'Registro de sesión exitoso!',
         text: 'Redirigiendo...',
-        timer: 2000
+        timer: 2000,
+        backdrop: '#22222280',
+        background: '#222',
+        color: '#ddd',
       })
 
       
       setTimeout(() => {
-
           navigate("/login");
-
       }, 2000)
 
     } catch (error) {
@@ -49,14 +50,19 @@ import "../components/styles.Login.css"
   return (
     <>
       <form className="containerLogin">
-        <div className="subContainerLogin">
-          <input className="inputLogin" type="text" value={company} placeholder="Empresa" onChange={(e) => setCompany(e.target.value)} />
-          <input className="inputLogin" type="text" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-          <input className="inputLogin" type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-          <input className="inputLogin" type="text" value={rol} placeholder="Rol" onChange={(e) => setRol(e.target.value)} />
-          <i style={{color: '#bbb'}}>Rol: DISTRIBUIDORA o RECEPTOR</i><br />
-          <span>¿Ya tenes cuenta? <a href="/login">Inicia sesiónn</a></span><br /> 
-          <button className="btn btn-success buttonLogin" onClick={handleSubmit}>Send</button>
+        <div className="subContainerLogin" style={{ paddingLeft: 25, paddingRight: 25, paddingTop: 20, paddingBottom: 20, position: 'relative', top: 170}}>
+          <div style={{ fontSize: 30 }}>Crea tu cuenta</div>
+          <input style={{ width: 400 }} className="inputLogin" type="text" value={company} placeholder="Empresa" onChange={(e) => setCompany(e.target.value)} />
+          <input style={{ width: 400 }} className="inputLogin" type="text" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+          <input style={{ width: 400 }} className="inputLogin" type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+          <select className="inputLogin" value={rol} onChange={(e) => setRol(e.target.value)}>
+            <option value="DISTRIBUIDORA">DISTRIBUIDORA</option>
+            <option value="RECEPTOR">RECEPTOR</option>
+          </select>
+          <span>¿Ya tienes una cuenta? 
+            <a href="/login" style={{ textDecorationLine:'none', color: '#08a' }}> Iniciá sesión</a>
+          </span><br /> 
+          <button className="btn btn-success buttonLogin" onClick={handleSubmit}>REGISTRO</button>
         </div>
       </form>
     </>

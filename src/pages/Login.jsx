@@ -12,7 +12,6 @@ import { rols } from "../types/types.js";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Usuario: ${company} Contraseña: ${password}`)
   
     try {
       const response = await fetch("http://localhost:3000/auth/login", {
@@ -23,24 +22,32 @@ import { rols } from "../types/types.js";
         body: JSON.stringify({company, password})
       });
       const data = await response.json();
-
-      console.log(`Datos enviados al backend: ${data.token}`)
-
-      if(!response.ok) {
-        return console.error("No se pudo loguear")
-      }
       
+      if(!response.ok) {
+        console.error("No se pudo loguear")
+        return Swal.fire({
+          title: 'Error',
+          text: 'Credenciales invalidas',
+          icon: 'error',
+          backdrop: '#22222280',
+          background: '#222',
+          color: '#ddd',
+        })
+      }
+
       localStorage.setItem('token', data.token);
 
       Swal.fire({
         title: '¡Inicio de sesión exitoso!',
         text: 'Redirigiendo...',
-        timer: 2000
+        timer: 2000,
+        backdrop: '#22222280',
+        background: '#222',
+        color: '#ddd',
       })
       
       setTimeout(() => {
         const ROL = getRolToken();
-        console.log(`EMPRESA: ${ROL}`)
 
         if(ROL === rols.ADMIN){
           navigate("/Home");
@@ -59,13 +66,16 @@ import { rols } from "../types/types.js";
   }
   return (
     <>
-      <form className="containerLogin">
-        <div className="subContainerLogin">
-          <input className="inputLogin" type="text" value={company} placeholder="Empresa" onChange={(e) => setCompany(e.target.value)} />
-          <input className="inputLogin" type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+      <form className="containerLogin" >
+        <div className="subContainerLogin" style={{ paddingLeft: 25, paddingRight: 25, paddingTop: 20, paddingBottom: 20, position: 'relative', top: 170}}>
+          <div style={{ fontSize: 30 }}>Inicia sesión</div>
+          <input style={{ width: 300 }} className="inputLogin" type="text" value={company} placeholder="Empresa" onChange={(e) => setCompany(e.target.value)} />
+          <input style={{ width: 300 }} className="inputLogin" type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
 
-          <span>¿Todavía no tenes cuenta? <a href="/register">Registrate</a></span><br />
-          <button className="btn btn-success buttonLogin" onClick={handleSubmit}>Send</button>
+          <span style={{ color: '#ddd' }}>¿No tienes una cuenta? 
+            <a href="/register" style={{ textDecorationLine:'none', color: '#08a' }}> Registrate</a>
+          </span><br />
+          <button className="btn btn-success buttonLogin" onClick={handleSubmit}>LOGIN</button>
         </div>
       </form>
     </>

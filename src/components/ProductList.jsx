@@ -13,14 +13,16 @@ export const ProductList = () => {
   
   useEffect(() => {
     const company = getCompanyToken();
-    console.log("empresa del token: ", company)
 
     if (!company) {
       Swal.fire({
         title: '¡Error!',
         icon: 'error',
         text: 'Empresa no encontrada',
-        timer: 2000
+        timer: 2000,
+        backdrop: '#22222280',
+        background: '#222',
+        color: '#ddd',
       })
       return;
     }
@@ -30,7 +32,6 @@ export const ProductList = () => {
         const response = await fetch(`http://localhost:3000/api/product/${company}`);
         const data = await response.json();
 
-        console.log("data:",data)
         setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error al obtener los productos:', error);
@@ -59,7 +60,7 @@ export const ProductList = () => {
             </Col>
           ))
         ) : (
-          <p>No hay productos disponibles.</p>
+          <p style={{textAlign: 'center', position: 'relative', top: 250}}>No hay productos disponibles.</p>
         )}
       </Row>
     </Container>

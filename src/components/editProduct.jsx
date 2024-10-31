@@ -38,6 +38,9 @@ export const EditProduct = ({ productEdit }) => {
         icon: 'success',
         title: 'Producto editado con éxito',
         timer: 2000,
+        backdrop: '#22222280',
+        background: '#222',
+        color: '#ddd',
       });
 
       handleClose();
@@ -46,6 +49,9 @@ export const EditProduct = ({ productEdit }) => {
         icon: 'error',
         title: 'Error',
         text: error.message,
+        backdrop: '#22222280',
+        background: '#222',
+        color: '#ddd',
       });
     }
   };
@@ -55,23 +61,26 @@ export const EditProduct = ({ productEdit }) => {
       <Button variant="secondary" onClick={handleShow}>Editar</Button>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className='containerPublicProduct'>
           <Modal.Title>Editar Producto</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='containerPublicProduct'>
           <Form>
             <Form.Group controlId="formProductName">
               <Form.Label>Empresa</Form.Label>
               <Form.Control
+                className='inputPublicProduct'
                 type="text"
                 name="name"
                 value={editedProduct.company}
                 onChange={handleChange}
+                disabled
               />
             </Form.Group>
             <Form.Group controlId="formProductName">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
+                className='inputPublicProduct'
                 type="text"
                 name="name"
                 value={editedProduct.name}
@@ -81,6 +90,7 @@ export const EditProduct = ({ productEdit }) => {
             <Form.Group controlId="formProductDescription">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
+                className='inputPublicProduct'
                 as="textarea"
                 rows={3}
                 name="description"
@@ -91,6 +101,7 @@ export const EditProduct = ({ productEdit }) => {
             <Form.Group controlId="formProductUbication">
               <Form.Label>Ubicación</Form.Label>
               <Form.Control
+                className='inputPublicProduct'
                 type="text"
                 name="ubication"
                 value={editedProduct.ubication}
@@ -100,6 +111,7 @@ export const EditProduct = ({ productEdit }) => {
             <Form.Group controlId="formProductStock">
               <Form.Label>Stock</Form.Label>
               <Form.Control
+                className='inputPublicProduct'
                 type="number"
                 name="stock"
                 value={editedProduct.stock}
@@ -108,9 +120,9 @@ export const EditProduct = ({ productEdit }) => {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
-          <Button variant="success" onClick={handleEditSubmit}>Guardar Cambios</Button>
+        <Modal.Footer className='containerPublicProduct' style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
+          <Button variant="secondary" onClick={handleClose} style={{width: '48%'}}>Cerrar</Button>
+          <Button variant="success" onClick={handleEditSubmit} style={{width: '48%'}}>Guardar Cambios</Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -2,10 +2,7 @@ import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { getCompanyToken } from "../utils/getCompanyToken";
 
-
 export const DeletedProduct = ({ productId }) => {
-    
-    
 
     const handleDelete = async () =>{
         try {
@@ -39,14 +36,21 @@ export const DeletedProduct = ({ productId }) => {
             title: "Advertencia",
             text: "Está por eliminar un producto",
             icon: "warning",
-            denyButtonText: "Eliminar"
+            denyButtonText: "Eliminar",
+            color: '#ddd',
+            background: '#222',
+            backdrop: '#22222280',
+            iconColor: '#f50'
         }).then((result) => {
             if(result.isDenied) {
                 handleDelete(),
                 Swal.fire({
                     icon: "success",
                     text: 'Producto eliminado exitosamente',
-                    timer: 2000
+                    timer: 2000,
+                    background: '#222',
+                    color: '#ddd',
+                    backdrop: '#22222280'
                 });
             }
         })

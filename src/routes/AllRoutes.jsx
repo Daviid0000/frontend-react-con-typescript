@@ -4,6 +4,7 @@ import { Register } from "../pages/Register";
 import { Home } from "../pages/Home";
 import { HomeRecep } from "../pages/HomeRecep";
 import { Unauthorized } from "../pages/Unauthorized";
+import { NotFound } from "../pages/NotFound";
 import RoutesProtected from "./RoutesProtected";
 import { rols } from "../types/types";
 
@@ -16,6 +17,7 @@ const AllRoutes = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/*" element={<NotFound />} />
 
                 <Route path="/Home" element={
                     <RoutesProtected allowedRoles={[rols.ADMIN, rols.COMPANY_EMISOR]}>
